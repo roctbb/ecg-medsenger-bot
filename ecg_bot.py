@@ -1,6 +1,7 @@
-import base64
+import ecg
+import time
+import random
 
-from flask import jsonify
 from manage import *
 from medsenger_api import AgentApiClient, prepare_file
 from helpers import *
@@ -49,14 +50,25 @@ def get_settings(args, form):
 def message(data):
     return "ok"
 
+
+def get_new_file_path():
+    rand = random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZ', k=8)
+    return 'files/{ns}-{rand}.png'.format(ns=time.time_ns(), rand=rand)
+
+
 @app.route('/parse', methods=['POST'])
 @verify_args
 def parse(args, data):
     data = request.json
-
     print(data)
 
-    medsenger_api.send_message(args.get('contract_id'), "ЭКГ", need_answer=True, send_from='patient', attachments=[prepare_file("files/example.pdf")])
+    file_path = get_new_file_path()
+    ecg.render_png(data['ecg'], file_path)
+    medsenger_api.send_message(args.get('contract_id'),
+                               'Получена ЭКГ пациента (устройство: '
+                               '{})'.format(data['device']),
+                               need_answer=True, send_from='patient',
+                               attachments=[prepare_file(file_path)])
 
     return "ok"
 

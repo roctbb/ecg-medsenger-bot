@@ -2,5 +2,6 @@ Flask
 Flask-SQLAlchemy
 psycopg2-binary
 requests
+matplotlib
 medsenger-api==0.1.11
 sentry-sdk[flask]
