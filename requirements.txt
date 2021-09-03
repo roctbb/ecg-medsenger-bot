@@ -1,0 +1,6 @@
+Flask
+Flask-SQLAlchemy
+psycopg2-binary
+requests
+medsenger-api==0.1.11
+sentry-sdk[flask]
