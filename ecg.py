@@ -31,7 +31,6 @@ def render_png(ecg, file_path):
 def _test_render_png():
     # Arrange
     ecg = ecg_example.ecg
-    title = 'Пациент: ECG Creator Medsenger Agent'
     file_path = 'files/example.png'
     png_path = pathlib.Path(file_path)
     png_path.unlink(missing_ok=True)
