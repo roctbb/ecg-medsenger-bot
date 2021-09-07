@@ -52,8 +52,8 @@ def message(data):
 
 
 def get_new_file_path():
-    rand = random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZ', k=8)
-    return 'files/{ns}-{rand}.png'.format(ns=time.time_ns(), rand=rand)
+    rand = ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZ', k=8))
+    return 'files/{ns}{rand}.png'.format(ns=time.time_ns(), rand=rand)
 
 
 @app.route('/parse', methods=['POST'])
@@ -65,8 +65,8 @@ def parse(args, data):
     file_path = get_new_file_path()
     ecg.render_png(data['ecg'], file_path)
     medsenger_api.send_message(args.get('contract_id'),
-                               'Получена ЭКГ пациента (устройство: '
-                               '{})'.format(data['device']),
+                               'Получена ЭКГ пациента с устройства '
+                               '{}'.format(data['device']),
                                need_answer=True, send_from='patient',
                                attachments=[prepare_file(file_path)])
 
