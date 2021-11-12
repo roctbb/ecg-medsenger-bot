@@ -8,7 +8,8 @@ import pathlib
 
 def render_png(ecg, file_path):
     ecg_arr = np.array(ecg)
-    ecg_arr = np.array_split(np.trim_zeros(ecg_arr), 5)
+    #ecg_arr = np.array_split(np.trim_zeros(ecg_arr), 5)
+    ecg_arr = np.array_split(ecg_arr, 5)
     fig, axes = plt.subplots(len(ecg_arr), 1,
                              gridspec_kw={'hspace': 0.1},
                              figsize=(16.6, 23.4))
