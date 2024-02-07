@@ -1,1 +1,1 @@
-supervisorctl restart agents-ecg
+touch /etc/uwsgi/apps/ecg.ini
